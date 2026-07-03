@@ -7,6 +7,7 @@ export const PosDeviceContract = {
   Columns: {
     DEVICE_ID: 'device_id',
     DEVICE_CODE: 'device_code',
+    DEVICE_NUM: 'device_num',
     API_KEY: 'api_key',
     SECRET: 'secret',
     NAME: 'name',
