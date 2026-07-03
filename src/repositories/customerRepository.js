@@ -76,12 +76,12 @@ export const CustomerRepository = {
     if (searchText) {
       // Parameter 1: pencarian nama menggunakan %searchText%
       params.push(`%${searchText}%`);
-      // Parameter 2: pencarian 4 digit terakhir ID menggunakan %searchText
-      params.push(`%${searchText}`);
+      // Parameter 2: pencarian 4 digit terakhir ID (menggunakan pencocokan eksak right/suffix)
+      params.push(searchText);
       
       conditions.push(`(
         c.${CustomerContract.Columns.CUSTOMER_NAME} ILIKE $1 
-        OR CAST(c.${CustomerContract.Columns.CUSTOMER_ID} AS TEXT) LIKE $2
+        OR right(c.${CustomerContract.Columns.CUSTOMER_ID}::text, 4) = $2
       )`);
     }
 
