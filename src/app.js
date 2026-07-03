@@ -4,6 +4,7 @@ import { db } from './config/db.js';
 
 import { authenticateApiKey } from './middlewares/auth.js';
 import posDeviceRoutes from './routes/posDeviceRoutes.js';
+import customerRoutes from './routes/customerRoutes.js';
 
 dotenv.config();
 
@@ -48,6 +49,9 @@ app.post('/api/pos/sync', authenticateApiKey, (req, res) => {
 
 // POS Device Routes
 app.use('/api/pos', posDeviceRoutes);
+
+// Customer Routes
+app.use('/api/customers', customerRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
