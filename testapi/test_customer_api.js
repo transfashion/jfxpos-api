@@ -69,8 +69,8 @@ async function startTests() {
   // Test 1: Mendapatkan semua customer
   await runTest('Daftar Semua Customer', '/');
 
-  // Test 2: Mendapatkan customer berdasarkan ID 1002 (Budi Santoso)
-  await runTest('Customer Detail ID 1002', '/1002');
+  // Test 2: Mendapatkan customer berdasarkan ID 81234567802 (Budi Santoso)
+  await runTest('Customer Detail ID 81234567802', '/81234567802');
 
   // Test 3: Mendapatkan customer detail dengan ID salah
   await runTest('Customer Detail ID Salah (9999)', '/9999');
@@ -79,7 +79,7 @@ async function startTests() {
   await runTest('Pencarian Paging (searchtext=budi)', '/search?offset=0&searchtext=budi');
 
   // Test 5: Pencarian Paging berdasarkan 4 Digit Terakhir ID
-  await runTest('Pencarian Paging (searchtext=1048)', '/search?offset=0&searchtext=1048');
+  await runTest('Pencarian Paging (searchtext=7848)', '/search?offset=0&searchtext=7848');
 }
 
 startTests();

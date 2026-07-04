@@ -2,8 +2,8 @@ import { CustomerRepository } from '../src/repositories/customerRepository.js';
 
 async function test() {
   try {
-    console.log('Mengambil data Customer ID 1002...');
-    const customer = await CustomerRepository.findById(1002);
+    console.log('Mengambil data Customer ID 81234567802...');
+    const customer = await CustomerRepository.findById(81234567802);
     
     if (customer) {
       console.log('Detail Customer Ditemukan:');
