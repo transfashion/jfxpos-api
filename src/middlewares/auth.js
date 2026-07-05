@@ -69,10 +69,17 @@ export const authenticateApiKey = async (req, res, next) => {
       .digest('hex');
 
     // 5. Bandingkan signature secara aman (Constant-time comparison)
-    const isSignatureValid = crypto.timingSafeEqual(
-      Buffer.from(computedSignature, 'hex'),
-      Buffer.from(clientSignature, 'hex')
-    );
+    const computedBuffer = Buffer.from(computedSignature, 'hex');
+    const clientBuffer = Buffer.from(clientSignature, 'hex');
+
+    if (computedBuffer.length !== clientBuffer.length) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Tanda tangan keamanan (Signature) tidak valid. Integritas data tidak terverifikasi.'
+      });
+    }
+
+    const isSignatureValid = crypto.timingSafeEqual(computedBuffer, clientBuffer);
 
     if (!isSignatureValid) {
       return res.status(401).json({

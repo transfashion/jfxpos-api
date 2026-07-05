@@ -2,6 +2,7 @@ export const PosDeviceController = {
   /**
    * Mendapatkan data POS Device (Kredensial sudah tervalidasi oleh middleware authenticateApiKey).
    * Melakukan pencocokan tambahan pada siteCode dan deptCode.
+   * Mengembalikan objek device dengan field posdevice_id, posdevice_code, posdevice_num, posdevice_isdisabled, dll.
    */
   async getDevice(req, res) {
     try {

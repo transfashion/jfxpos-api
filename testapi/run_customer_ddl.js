@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { db } from '../src/config/db.js';
 
-const ddlPath = path.resolve('ddl/create_customers.sql');
+const ddlPath = path.resolve('ddl/create_customer.sql');
 
 async function run() {
   try {

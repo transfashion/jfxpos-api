@@ -3,11 +3,11 @@
  * Menyimpan nama tabel dan kolom-kolom untuk menghindari hardcoding string.
  */
 export const PosDeviceContract = {
-  TABLE_NAME: 'pos_devices',
+  TABLE_NAME: 'posdevice',
   Columns: {
-    DEVICE_ID: 'device_id',
-    DEVICE_CODE: 'device_code',
-    DEVICE_NUM: 'device_num',
+    POSDEVICE_ID: 'posdevice_id',
+    POSDEVICE_CODE: 'posdevice_code',
+    POSDEVICE_NUM: 'posdevice_num',
     API_KEY: 'api_key',
     SECRET: 'secret',
     NAME: 'name',
@@ -16,7 +16,7 @@ export const PosDeviceContract = {
     SITE_NAME: 'site_name',
     STRUCT_ID: 'struct_id',
     STRUCT_CODE: 'struct_code',
-    IS_ACTIVE: 'is_active',
+    POSDEVICE_ISDISABLED: 'posdevice_isdisabled',
     CREATED_AT: 'created_at',
     DATATIMESTAMP: 'datatimestamp'
   }

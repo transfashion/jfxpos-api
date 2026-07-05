@@ -11,9 +11,9 @@ export const PosDeviceRepository = {
   async findByDeviceCodeAndApiKey(deviceCode, apiKey) {
     const query = `
       SELECT * FROM ${PosDeviceContract.TABLE_NAME}
-      WHERE ${PosDeviceContract.Columns.DEVICE_CODE} = $1
+      WHERE ${PosDeviceContract.Columns.POSDEVICE_CODE} = $1
         AND ${PosDeviceContract.Columns.API_KEY} = $2
-        AND ${PosDeviceContract.Columns.IS_ACTIVE} = true
+        AND ${PosDeviceContract.Columns.POSDEVICE_ISDISABLED} = false
       LIMIT 1
     `;
 
@@ -34,7 +34,7 @@ export const PosDeviceRepository = {
   async findByDeviceCode(deviceCode) {
     const query = `
       SELECT * FROM ${PosDeviceContract.TABLE_NAME}
-      WHERE ${PosDeviceContract.Columns.DEVICE_CODE} = $1
+      WHERE ${PosDeviceContract.Columns.POSDEVICE_CODE} = $1
       LIMIT 1
     `;
 

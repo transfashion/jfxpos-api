@@ -14,6 +14,13 @@ export const CustomerController = {
       });
     }
 
+    if (!/^\d+$/.test(id)) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Format ID customer tidak valid. ID harus berupa angka.'
+      });
+    }
+
     try {
       const customer = await CustomerRepository.findById(id);
 

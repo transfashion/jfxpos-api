@@ -38,7 +38,7 @@ app.post('/api/pos/sync', authenticateApiKey, (req, res) => {
   res.json({
     message: 'Sync data POS berhasil',
     device: {
-      id: req.device.device_id,
+      id: req.device.posdevice_id,
       name: req.device.name
     },
     siteCode: req.siteCode,

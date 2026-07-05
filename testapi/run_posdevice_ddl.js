@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { db } from '../src/config/db.js';
 
-const ddlPath = path.resolve('ddl/create_pos_devices.sql');
+const ddlPath = path.resolve('ddl/create_posdevice.sql');
 
 async function run() {
   try {
@@ -11,7 +11,7 @@ async function run() {
 
     console.log('Menjalankan migrasi database...');
     // Jalankan drop table jika skema berubah drastis
-    await db.none('DROP TABLE IF EXISTS pos_devices CASCADE;');
+    await db.none('DROP TABLE IF EXISTS posdevice CASCADE;');
     await db.none(ddl);
     console.log('Migrasi skema database berhasil!');
   } catch (error) {
