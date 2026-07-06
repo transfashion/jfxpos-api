@@ -1,7 +1,7 @@
 /**
  * Test Script untuk menguji API endpoint:
- * - GET /api/items/getItemSync
- * - POST /api/items/finishItemSync
+ * - GET /api/possync/getItemSync
+ * - POST /api/possync/finishItemSync
  *
  * Cara menjalankan:
  * 1. Pastikan server Express aktif (`npm run dev` atau `node src/app.js`)
@@ -10,9 +10,9 @@
 
 import crypto from 'crypto';
 
-const PREPARE_URL = 'http://localhost:3000/api/items/prepareItemSyn';
-const GET_SYNC_URL = 'http://localhost:3000/api/items/getItemSync';
-const FINISH_SYNC_URL = 'http://localhost:3000/api/items/finishItemSync';
+const PREPARE_URL = 'http://localhost:3000/api/possync/prepareItemSyn';
+const GET_SYNC_URL = 'http://localhost:3000/api/possync/getItemSync';
+const FINISH_SYNC_URL = 'http://localhost:3000/api/possync/finishItemSync';
 
 const CLIENT_CONFIG = {
   deviceCode: 'pos-kasir-01',

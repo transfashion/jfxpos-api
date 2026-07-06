@@ -1,5 +1,5 @@
 /**
- * Test Script untuk menguji API endpoint: POST /api/items/prepareItemSyn
+ * Test Script untuk menguji API endpoint: POST /api/possync/prepareItemSyn
  * Endpoint ini terproteksi oleh M2M Signature Verification.
  * Cara menjalankan:
  * 1. Pastikan server Express aktif (`npm run dev` atau `node src/app.js`)
@@ -8,7 +8,7 @@
 
 import crypto from 'crypto';
 
-const API_URL = 'http://localhost:3000/api/items/prepareItemSyn';
+const API_URL = 'http://localhost:3000/api/possync/prepareItemSyn';
 
 // Kredensial lokal (simulasi parsing dari config token di sisi client)
 const CLIENT_CONFIG = {

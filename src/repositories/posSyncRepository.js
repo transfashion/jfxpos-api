@@ -96,7 +96,11 @@ export const PosSyncRepository = {
 
       await t.none(updateSyncQuery, [rowCount, blockCount, possyncId]);
 
-      return possyncId;
+      return {
+        possync_id: possyncId,
+        rowcount: rowCount,
+        blockcount: blockCount
+      };
     });
   },
 

@@ -1,6 +1,6 @@
 import { PosSyncRepository } from '../repositories/posSyncRepository.js';
 
-export const ItemController = {
+export const PosSyncController = {
   /**
    * API untuk mengambil persiapan sync item (prepareItemSyn).
    * Menyimpan data persiapan sync ke tabel possync.
@@ -42,7 +42,7 @@ export const ItemController = {
 
     try {
       // 4. Simpan ke database
-      const possync_id = await PosSyncRepository.createItemSync({
+      const { possync_id, rowcount, blockcount } = await PosSyncRepository.createItemSync({
         posdevice_id,
         client_timestamp: clientTime,
         datatimestamp: dataTime
@@ -52,7 +52,9 @@ export const ItemController = {
         success: true,
         message: 'Persiapan sinkronisasi berhasil disimpan.',
         data: {
-          possync_id
+          possync_id,
+          rowcount,
+          blockcount
         }
       });
     } catch (error) {
