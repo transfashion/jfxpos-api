@@ -9,8 +9,14 @@ CREATE TABLE IF NOT EXISTS possync (
     datatimestamp TIMESTAMPTZ NOT NULL,
     is_completed BOOLEAN DEFAULT FALSE NOT NULL,
     is_error BOOLEAN DEFAULT FALSE NOT NULL,
-    errormessage TEXT
+    errormessage TEXT,
+    possync_name TEXT,
+    possync_rowcount INTEGER,
+    possync_blockcount INTEGER,
+    possync_cleanon DATE
 );
 
 -- Index untuk mempercepat pencarian data sync berdasarkan posdevice
 CREATE INDEX IF NOT EXISTS idx_possync_posdevice ON possync (posdevice_id);
+CREATE INDEX IF NOT EXISTS idx_possync_cleanon ON possync (possync_cleanon);
+

@@ -40,6 +40,20 @@ Request Body wajib bertipe JSON dan memuat properti berikut:
 
 ---
 
+## ⚙️ Logika Bisnis & Perubahan Database (Server Side)
+
+Pada saat memproses request `prepareItemSyn`, server melakukan langkah-langkah berikut:
+1. **Asynchronous Cleaning**: Melakukan pembersihan data sinkronisasi lama secara asinkronus (fire-and-forget) jika kolom `possync_cleanon` lebih lama dari hari ini (kemarin ke belakang).
+2. **Pencatatan Awal (`possync`)**: Membuat baris record persiapan sinkronisasi baru pada tabel `possync` dengan field-field tambahan berikut:
+   - `possync_name`: Berisi nama tipe sinkronisasi (`"ITEM SYNC"`).
+   - `possync_cleanon`: Masa aktif log sinkronisasi (diatur otomatis 30 hari dari tanggal server saat data dibuat).
+3. **Penyalinan Data Item (`itemsync`)**: Menyalin data item dari tabel `item` yang memiliki `datatimestamp >= request_body.datatimestamp` ke tabel unlogged `itemsync` secara berkelompok (per block). Ukuran block default diatur sebesar `50` item.
+4. **Pembaruan Informasi Jumlah (`possync`)**: Setelah data berhasil disalin, server memperbarui kolom berikut pada tabel `possync` untuk data sinkronisasi terkait:
+   - `possync_rowcount`: Berisi jumlah baris item yang berhasil tersalin.
+   - `possync_blockcount`: Berisi total jumlah block halaman yang berhasil dibuat (berdasarkan total baris dibagi `50` per block).
+
+---
+
 ## 📤 Spesifikasi Response
 
 ### 1. Skenario Sukses (201 Created)

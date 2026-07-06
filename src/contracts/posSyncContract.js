@@ -12,6 +12,10 @@ export const PosSyncContract = {
     DATATIMESTAMP: 'datatimestamp',
     IS_COMPLETED: 'is_completed',
     IS_ERROR: 'is_error',
-    ERRORMESSAGE: 'errormessage'
+    ERRORMESSAGE: 'errormessage',
+    POSSYNC_NAME: 'possync_name',
+    POSSYNC_ROWCOUNT: 'possync_rowcount',
+    POSSYNC_BLOCKCOUNT: 'possync_blockcount',
+    POSSYNC_CLEANON: 'possync_cleanon'
   }
 };

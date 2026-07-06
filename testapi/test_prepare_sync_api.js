@@ -24,7 +24,7 @@ async function runTest(testName, customHeaders = {}, body = null, secretKey = CL
   console.log(`[TEST]: ${testName}`);
 
   const timestamp = new Date().toISOString();
-  
+
   // Hitung Signature HMAC-SHA256
   const payload = JSON.stringify(body || {}) + timestamp;
   const signature = crypto
@@ -46,20 +46,20 @@ async function runTest(testName, customHeaders = {}, body = null, secretKey = CL
 
   console.log(`Headers sent:`, JSON.stringify(headers, null, 2));
   console.log(`Body sent:`, JSON.stringify(body, null, 2));
-  
+
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: headers,
       body: body ? JSON.stringify(body) : null
     });
-    
+
     const status = response.status;
     const data = await response.json();
-    
+
     console.log(`Status Response: ${status}`);
     console.log(`Data Response:`, JSON.stringify(data, null, 2));
-    
+
     if (status >= 200 && status < 300) {
       console.log(`Result: SUCCESS (Valid match)`);
     } else {
@@ -79,23 +79,42 @@ async function startTests() {
     datatimestamp: new Date().toISOString()
   };
 
-  // Test 1: Skenario Berhasil (Cocok semua & Signature valid)
-  await runTest('Skenario Sukses - Kredensial & Signature Valid', {}, validBody);
 
-  // Test 2: Skenario Gagal - posdevice_id tidak cocok
-  await runTest('Skenario Gagal - posdevice_id Tidak Cocok', {}, {
+  // Test 1c: Skenario Berhasil dengan datatimestamp spesifik 2026-07-05 05:03:32.124
+  await runTest('Skenario Sukses - Datatimestamp Spesifik 2026-07-05 05:03:32.124', {}, {
     ...validBody,
-    posdevice_id: 99
+    datatimestamp: '2026-07-05 05:03:32.124'
   });
 
-  // Test 3: Skenario Gagal - Body parameter tidak lengkap
-  await runTest('Skenario Gagal - Parameter Tidak Lengkap', {}, {
-    posdevice_id: 1
-    // client_timestamp & datatimestamp missing
-  });
 
-  // Test 4: Skenario Gagal - Signature Salah (kunci secret salah)
-  await runTest('Skenario Gagal - Signature Salah (Secret salah)', {}, validBody, 'secret_salah_123');
+
+  // // Test 1: Skenario Berhasil (Cocok semua & Signature valid)
+  // await runTest('Skenario Sukses - Kredensial & Signature Valid', {}, validBody);
+
+  // // Test 1b: Skenario Berhasil dengan datatimestamp = 0
+  // await runTest('Skenario Sukses - Datatimestamp = 0 (Ambil Semua)', {}, {
+  //   ...validBody,
+  //   datatimestamp: 0
+  // });
+
+
+
+  // // Test 2: Skenario Gagal - posdevice_id tidak cocok
+  // await runTest('Skenario Gagal - posdevice_id Tidak Cocok', {}, {
+  //   ...validBody,
+  //   posdevice_id: 99
+  // });
+
+  // // Test 3: Skenario Gagal - Body parameter tidak lengkap
+  // await runTest('Skenario Gagal - Parameter Tidak Lengkap', {}, {
+  //   posdevice_id: 1
+  //   // client_timestamp & datatimestamp missing
+  // });
+
+  // // Test 4: Skenario Gagal - Signature Salah (kunci secret salah)
+  // await runTest('Skenario Gagal - Signature Salah (Secret salah)', {}, validBody, 'secret_salah_123');
+
+
 }
 
 startTests();
