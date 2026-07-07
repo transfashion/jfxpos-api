@@ -27,7 +27,7 @@ Setiap pemanggilan API ini wajib menyertakan header keamanan M2M (Machine-to-Mac
 | `X-Dept-Code` | String | Kode Departemen divisi kasir perangkat POS | `DEPT01` |
 
 > [!NOTE]
-> Karena request GET ini tidak memiliki Request Body, maka string payload yang dijadikan parameter HMAC adalah: `"" + timestamp` (atau `"{}" + timestamp`).
+> Karena request GET ini tidak memiliki Request Body, di mana Express akan membaca `req.body` sebagai `{}` (jika parsed), maka string payload yang dijadikan parameter HMAC adalah: `"{}" + timestamp`.
 
 ---
 
@@ -41,8 +41,9 @@ Dihasilkan jika signature valid, `deviceCode` ditemukan, serta kombinasi `siteCo
 {
   "success": true,
   "data": {
-    "device_id": 1,
-    "device_code": "pos-kasir-01",
+    "posdevice_id": 1,
+    "posdevice_code": "pos-kasir-01",
+    "posdevice_num": "21",
     "api_key": "key_kasir_satu_123",
     "secret": "secret_kasir_satu_999_xyz",
     "name": "POS Kasir Utama",
@@ -51,7 +52,7 @@ Dihasilkan jika signature valid, `deviceCode` ditemukan, serta kombinasi `siteCo
     "site_name": "Bandung Indah Plaza",
     "struct_id": 20,
     "struct_code": "DEPT01",
-    "is_active": true,
+    "posdevice_isdisabled": false,
     "created_at": "2026-07-02T23:42:55.895Z",
     "datatimestamp": "2026-07-02T23:42:55.895Z"
   }
