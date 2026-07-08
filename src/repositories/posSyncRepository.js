@@ -127,7 +127,12 @@ export const PosSyncRepository = {
       SELECT 
         i.*,
         its.${ItemSyncContract.Columns.SYNNUMBER},
-        its.${ItemSyncContract.Columns.SYNBLOCK}
+        its.${ItemSyncContract.Columns.SYNBLOCK},
+        (
+          SELECT COALESCE(json_agg(ib ORDER BY ib.itembarcode_id), '[]'::json)
+          FROM itembarcode ib
+          WHERE ib.item_id = i.item_id
+        ) as barcodes
       FROM ${ItemSyncContract.TABLE_NAME} its
       INNER JOIN item i ON its.${ItemSyncContract.Columns.ITEM_ID} = i.item_id
       WHERE its.${ItemSyncContract.Columns.POSSYNC_ID} = $1 

@@ -105,7 +105,18 @@ Mengambil data item berdasarkan nomor blok halaman (`synblock`) pada sesi sinkro
       "md5hash": "d41d8cd98f00b204e9800998ecf8427e",
       "datatimestamp": "2026-07-05T05:10:00.000Z",
       "synnumber": "1",
-      "synblock": "1"
+      "synblock": "1",
+      "barcodes": [
+        {
+          "itembarcode_id": "1",
+          "itembarcode_isdisabled": false,
+          "item_id": "1001",
+          "barcode": "8991234567890",
+          "brand_id": 2,
+          "created_at": "2026-07-05T05:10:00.000Z",
+          "datatimestamp": "2026-07-05T05:10:00.000Z"
+        }
+      ]
     },
     {
       "item_id": "1002",
@@ -115,7 +126,8 @@ Mengambil data item berdasarkan nomor blok halaman (`synblock`) pada sesi sinkro
       "md5hash": "8c545084bc606f35b2e5912d08a542b8",
       "datatimestamp": "2026-07-05T05:12:30.000Z",
       "synnumber": "2",
-      "synblock": "1"
+      "synblock": "1",
+      "barcodes": []
     }
   ]
 }
