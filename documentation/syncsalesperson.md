@@ -26,10 +26,12 @@ Digunakan untuk memulai sesi sinkronisasi data salesperson baru. Server akan men
 {
   "posdevice_id": 1,
   "client_timestamp": "2026-07-09T08:30:00.000Z",
-  "datatimestamp": "2026-07-08T00:00:00.000Z"
+  "datatimestamp": "2026-07-08T00:00:00.000Z",
+  "site_id": 10
 }
 ```
-*Gunakan `"datatimestamp": 0` atau `"0"` untuk mengambil seluruh data dari awal.*
+* **site_id** (integer, opsional): Digunakan untuk memfilter salesperson berdasarkan site. Jika tidak diisi, server akan mendeteksi `site_id` dari perangkat POS terautentikasi.
+* Gunakan `"datatimestamp": 0` atau `"0"` untuk mengambil seluruh data dari awal.
 
 ### Response (201 Created)
 ```json

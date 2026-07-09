@@ -22,6 +22,15 @@ export const SalespersonSyncController = {
       });
     }
 
+    const site_id = req.body.site_id !== undefined ? parseInt(req.body.site_id, 10) : req.device.site_id;
+
+    if (isNaN(site_id)) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Parameter site_id tidak valid atau tidak ditemukan.'
+      });
+    }
+
     const clientTime = new Date(client_timestamp);
     let dataTime;
     if (datatimestamp === 0 || datatimestamp === '0') {
@@ -41,7 +50,8 @@ export const SalespersonSyncController = {
       const { possync_id, rowcount, blockcount } = await SalespersonSyncRepository.createSalespersonSync({
         posdevice_id,
         client_timestamp: clientTime,
-        datatimestamp: dataTime
+        datatimestamp: dataTime,
+        site_id
       });
 
       return res.status(201).json({

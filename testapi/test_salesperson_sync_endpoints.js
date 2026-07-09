@@ -52,7 +52,8 @@ async function runTests() {
     const prepareBody = {
       posdevice_id: 1,
       client_timestamp: new Date().toISOString(),
-      datatimestamp: 0 // Fetch all salesperson records
+      datatimestamp: 0, // Fetch all salesperson records
+      site_id: 10 // Filter by site_id 10
     };
     const response = await fetch(PREPARE_URL, {
       method: 'POST',

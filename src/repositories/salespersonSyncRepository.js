@@ -10,7 +10,7 @@ export const SalespersonSyncRepository = {
   /**
    * Membuat record baru untuk persiapan sinkronisasi dan menyalin data salesperson ke salespersonsync dalam transaksi yang sama.
    */
-  async createSalespersonSync({ posdevice_id, client_timestamp, datatimestamp }) {
+  async createSalespersonSync({ posdevice_id, client_timestamp, datatimestamp, site_id }) {
     // Hapus data sync lama secara async (fire-and-forget) sebelum transaksi
     db.none(`
       DELETE FROM ${PosSyncContract.TABLE_NAME}
@@ -48,7 +48,7 @@ export const SalespersonSyncRepository = {
 
       const possyncId = record.possync_id;
 
-      // 2. Copy semua data salesperson ke salespersonsync dengan salesperson.datatimestamp >= datatimestamp
+      // 2. Copy semua data salesperson ke salespersonsync dengan salesperson.datatimestamp >= datatimestamp dan site_id = site_id
       const copySalespersonsQuery = `
         INSERT INTO ${SalespersonSyncContract.TABLE_NAME} (
           ${SalespersonSyncContract.Columns.POSSYNC_ID},
@@ -69,11 +69,11 @@ export const SalespersonSyncRepository = {
             datatimestamp,
             ROW_NUMBER() OVER (ORDER BY datatimestamp ASC, salesperson_id ASC) AS row_num
           FROM salesperson
-          WHERE datatimestamp >= $2
+          WHERE datatimestamp >= $2 AND site_id = $4
         ) subquery
       `;
 
-      const result = await t.result(copySalespersonsQuery, [possyncId, datatimestamp, SYNC_BLOCK_SIZE]);
+      const result = await t.result(copySalespersonsQuery, [possyncId, datatimestamp, SYNC_BLOCK_SIZE, parseInt(site_id, 0)]);
       const rowCount = result.rowCount;
       const blockCount = rowCount > 0 ? Math.ceil(rowCount / SYNC_BLOCK_SIZE) : 0;
 
