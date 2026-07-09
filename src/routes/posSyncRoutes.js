@@ -9,5 +9,10 @@ router.post('/prepareItemSyn', authenticateApiKey, PosSyncController.prepareItem
 router.get('/getItemSync', authenticateApiKey, PosSyncController.getItemSync);
 router.post('/finishItemSync', authenticateApiKey, PosSyncController.finishItemSync);
 
+// Route untuk persiapan sinkronisasi salesperson, terproteksi dengan M2M Signature & API-Key verification
+router.post('/prepareSalespersonSyn', authenticateApiKey, PosSyncController.prepareSalespersonSync);
+router.get('/getSalespersonSync', authenticateApiKey, PosSyncController.getSalespersonSync);
+router.post('/finishSalespersonSync', authenticateApiKey, PosSyncController.finishSalespersonSync);
+
 
 export default router;

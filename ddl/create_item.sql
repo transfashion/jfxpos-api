@@ -18,6 +18,8 @@ CREATE TABLE IF NOT EXISTS item (
     struct_name VARCHAR(255),
     brand_id INTEGER,
     brand_name VARCHAR(255),
+    season_id varchar(20),
+    md5hash varchar(32),
     datatimestamp TIMESTAMP NOT NULL,
     CONSTRAINT pk_item PRIMARY KEY (item_id)
 );
