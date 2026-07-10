@@ -1,7 +1,7 @@
--- Table: itemsync (unlogged)
+-- Table: syncitem (unlogged)
 -- Deskripsi: Menyimpan data sinkronisasi item per blok untuk sinkronisasi POS
 
-CREATE UNLOGGED TABLE IF NOT EXISTS itemsync (
+CREATE UNLOGGED TABLE IF NOT EXISTS syncitem (
     possync_id BIGINT NOT NULL REFERENCES possync(possync_id) ON DELETE CASCADE,
     item_id BIGINT NOT NULL,
     datatimestamp TIMESTAMP NOT NULL,
@@ -11,4 +11,4 @@ CREATE UNLOGGED TABLE IF NOT EXISTS itemsync (
 );
 
 -- Index untuk mempercepat pencarian item berdasarkan possync_id dan synblock
-CREATE INDEX IF NOT EXISTS idx_itemsync_possync_synblock ON itemsync (possync_id, synblock);
+CREATE INDEX IF NOT EXISTS idx_syncitem_possync_synblock ON syncitem (possync_id, synblock);

@@ -105,9 +105,34 @@ export const ItemSyncRepository = {
         its.${ItemSyncContract.Columns.SYNNUMBER},
         its.${ItemSyncContract.Columns.SYNBLOCK},
         (
-          SELECT COALESCE(json_agg(ib ORDER BY ib.itembarcode_id), '[]'::json)
-          FROM itembarcode ib
-          WHERE ib.item_id = i.item_id
+          SELECT COALESCE(json_agg(ib ORDER BY ib.itembarcode_id NULLS LAST), '[]'::json)
+          FROM (
+            SELECT 
+              itembarcode_id,
+              itembarcode_isdisabled,
+              item_id,
+              barcode,
+              brand_id,
+              created_at,
+              datatimestamp
+            FROM itembarcode
+            WHERE item_id = i.item_id
+            
+            UNION ALL
+            
+            SELECT 
+              -i.item_id AS itembarcode_id,
+              FALSE AS itembarcode_isdisabled,
+              i.item_id,
+              i.item_id::VARCHAR(50) AS barcode,
+              i.brand_id,
+              i.datatimestamp AS created_at,
+              i.datatimestamp
+            WHERE NOT EXISTS (
+              SELECT 1 FROM itembarcode 
+              WHERE item_id = i.item_id AND barcode = i.item_id::VARCHAR(50)
+            )
+          ) ib
         ) as barcodes
       FROM ${ItemSyncContract.TABLE_NAME} its
       INNER JOIN item i ON its.${ItemSyncContract.Columns.ITEM_ID} = i.item_id
